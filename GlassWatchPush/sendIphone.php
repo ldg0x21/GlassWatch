@@ -1,11 +1,9 @@
 <?php
 
-// Put your device token here (without spaces):
+// Each time you delete / register you need to change this token
 // $deviceToken = '13beb567fda05ffc47f8f99d68146034ab6e6e1ccd6b56f25eeaeb41f1624dc9';
-$deviceToken = '0ec7e53acabb0dade5a35f1550c46e0286ae1bc7d946d215dac05f690d201129';
 
-// Put your private key's passphrase here:
-$passphrase = 'Dave Gress Dev PollMe';
+$passphrase = 'Dave Gress GlassWatch';
 
 $message = $argv[1];
 $url = $argv[2];
@@ -16,12 +14,12 @@ if (!$message || !$url)
 ////////////////////////////////////////////////////////////////////////////////
 
 $ctx = stream_context_create();
-stream_context_set_option($ctx, 'ssl', 'local_cert', 'pollme.pem');
+stream_context_set_option($ctx, 'ssl', 'local_cert', 'glasswatch.pem');
 stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
 
 // Open a connection to the APNS server
 $fp = stream_socket_client(
-  'ssl://gateway.sandbox.push.apple.com:2195', $err,
+  'ssl://17.172.232.18:2195', $err,
   $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
 
 if (!$fp)
