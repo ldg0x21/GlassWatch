@@ -1,10 +1,14 @@
 
 import UIKit
 import SafariServices
+import Foundation
+import UIKit
+import MessageUI
+
 
 weak var nameTextField: UITextField!
 
-class GlassFeedTableViewController: UITableViewController {
+class GlassFeedTableViewController: UITableViewController,MFMailComposeViewControllerDelegate {
     // MARK: Properties
   static let RefreshGlassFeedNotification = "RefreshGlassFeedNotification"
   let pollStore = GlassStore.sharedStore
@@ -43,17 +47,7 @@ extension GlassFeedTableViewController {
     print ("Number of items:", pollStore.items.count)
     return pollStore.items.count
   }
-    
-  //  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-   //     if editingStyle == .Delete {
-   //          objects.removeAtIndex(indexPath.row)
-   //         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    //    } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-   //     }
-   // }
-
-    
+   
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
             // delete item at indexPath
@@ -80,8 +74,17 @@ extension GlassFeedTableViewController {
         
         let share = UITableViewRowAction(style: .Normal, title: "Share") { (action, indexPath) in
             // share item at indexPath
+            print ("user hit share button")
+            
+            let  mailComposeViewController = self.configuredMailComposeViewController()
+            if MFMailComposeViewController.canSendMail() {
+                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            } else {
+                self.showSendMailErrorAlert()
+            }
         }
         
+        print("Slide the entry")
         share.backgroundColor = UIColor.blueColor()
         
         return [delete, share]
@@ -188,5 +191,36 @@ extension GlassFeedTableViewController {
     //    var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
     //    selectedCell.contentView.backgroundColor = UIColor.redColor()
     //}
+    
+
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients([])
+        mailComposerVC.setSubject("Forward GlassWatch Push Notify!")
+        var mailBody = ""
+        let msg = "----- I got the following -----"
+        mailBody += msg
+        mailBody += "---Add the notify push msg details here !----"
+        mailComposerVC.setMessageBody(mailBody, isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
     
 }
