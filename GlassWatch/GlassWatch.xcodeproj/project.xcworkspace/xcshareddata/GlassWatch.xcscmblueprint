@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FF505F319B2229E65E7696BC40DC43FB3F54C31D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "FF505F319B2229E65E7696BC40DC43FB3F54C31D" : 0,
+    "C7226C732219D9CDA4566881C9C69007BFA67802" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "64ED1F4B-E7B7-44B6-9B5D-D28FF63DB879",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "FF505F319B2229E65E7696BC40DC43FB3F54C31D" : "Starter\/",
+    "C7226C732219D9CDA4566881C9C69007BFA67802" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "GlassWatch",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GlassWatch\/GlassWatch.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/arashnorouzi\/Moon-APNS",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C7226C732219D9CDA4566881C9C69007BFA67802"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ldg0x21\/GlassWatch.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FF505F319B2229E65E7696BC40DC43FB3F54C31D"
+    }
+  ]
+}

@@ -13,8 +13,17 @@ class GlassStore: NSObject {
 
   func addItem(newItem: GlassItem) {
      items.insert(newItem, atIndex: 0)
+    
     saveItemsToCache()
   }
+   
+    func deleteItem(newItem: GlassItem) {
+            items.removeAtIndex(0)
+        saveItemsToCache()
+    }
+ 
+    
+    
 }
 
 
@@ -22,6 +31,7 @@ class GlassStore: NSObject {
 extension GlassStore {
   func saveItemsToCache() {
     NSKeyedArchiver.archiveRootObject(items, toFile: itemsCachePath)
+    
   }
 
   func loadItemsFromCache() {

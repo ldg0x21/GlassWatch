@@ -43,7 +43,55 @@ extension GlassFeedTableViewController {
     print ("Number of items:", pollStore.items.count)
     return pollStore.items.count
   }
+    
+  //  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+   //     if editingStyle == .Delete {
+   //          objects.removeAtIndex(indexPath.row)
+   //         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    //    } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+   //     }
+   // }
 
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
+            // delete item at indexPath
+            print("Delete the item:", (NSindexPath: indexPath.row))
+            
+            //Remove the item from the view if delete specified
+             tableView.beginUpdates()
+             let glassStore = GlassStore.sharedStore
+            
+            //Save the new data
+
+             glassStore.items.removeAtIndex(indexPath.row)
+            glassStore.saveItemsToCache()
+            
+            //Update the tableView
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            
+            
+            //End of update
+            
+            tableView.endUpdates()
+        }
+        
+        let share = UITableViewRowAction(style: .Normal, title: "Share") { (action, indexPath) in
+            // share item at indexPath
+        }
+        
+        share.backgroundColor = UIColor.blueColor()
+        
+        return [delete, share]
+    }
+    
+    
+    
+    
+    
+    
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("GlassItemCell", forIndexPath: indexPath) as! GlassItemCell
     cell.updateWithGlassItem(pollStore.items[indexPath.row])
@@ -118,6 +166,27 @@ extension GlassFeedTableViewController {
       let safari = SFSafariViewController(URL: url)
       presentViewController(safari, animated: true, completion: nil)
         print("User selected:", indexPath)
+        
+       var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+       selectedCell.contentView.backgroundColor = UIColor.greenColor()
+        selectedCell.backgroundColor = UIColor.grayColor()
+        
+        
     }
   }
+    
+    //override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
+    //{
+    //    cell.contentView.backgroundColor = UIColor.yellowColor()
+    //}
+
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
+    
+    //override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    //    var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+    //    selectedCell.contentView.backgroundColor = UIColor.redColor()
+    //}
+    
 }
